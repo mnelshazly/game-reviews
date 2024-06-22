@@ -129,3 +129,15 @@ nav {
       transform: rotate(360deg);
     }
   }
+
+  /* Media Quiries */
+
+  @media (max-width:576px) {
+    nav {
+        width: 100%;
+    }
+
+    .navbar-brand span {
+        font-size: 18px !important;
+    }
+  }

@@ -47,7 +47,7 @@ class Ui {
         <p>Platform: <span class="text-bg-info">${data.platform}</span></p>
         <p>Status: <span class="text-bg-info">${data.status}</span></p>
         <p class="small">${data.description}</p>
-        <a href="${data.game_url}" target="_blank" class="btn btn-outline-warning">Show Game</a>
+        <a href="${data.game_url}" target="_blank" class="btn btn-outline-warning mb-3">Show Game</a>
       </div>
     `;
     document.querySelector(".game-data").innerHTML = gameDetail;
@@ -76,25 +76,32 @@ class Details {
     // Show the loader before fetching the data
     const loader = document.querySelector(".loading");
     loader.classList.remove("d-none");
+    
+    try {
 
-    // Options: fetching method and API key
-    const options = {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': 'fdb321108emshd97abe78e0e4556p146924jsn4a40dbe9908a',
-        'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com'
-      }
-    };
+      // Options: fetching method and API key
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': 'fdb321108emshd97abe78e0e4556p146924jsn4a40dbe9908a',
+          'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com'
+        }
+      };
 
-    // Fetching the data from the API using the id
-    const res = await fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gemeId}`, options);
-    const data = await res.json();
+      // Fetching the data from the API using the id
+      const res = await fetch(`https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gemeId}`, options);
+      const data = await res.json();
 
-    // Display single game's details after fetching the data
-    this.ui.displayGameDetails(data);
+      // Display single game's details after fetching the data
+      this.ui.displayGameDetails(data);
 
-    // Hide the loader after displaying the data
-    loader.classList.add("d-none")
+      // Hide the loader after displaying the data
+      loader.classList.add("d-none")
+
+    } catch (err) {
+      alert(err);
+    }
+
 
   }
 }
@@ -130,27 +137,35 @@ class Games {
     const loader = document.querySelector(".loading");
     loader.classList.remove("d-none")
 
-    // Options: fetching method and API key
-    const options = {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': 'fdb321108emshd97abe78e0e4556p146924jsn4a40dbe9908a',
-        'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com'
-      }
-    };
+    try {
+      // Options: fetching method and API key
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': 'fdb321108emshd97abe78e0e4556p146924jsn4a40dbe9908a',
+          'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com'
+        }
+      };
 
-    // Fetching the data from the API using the category
-    const res = await fetch(`https://free-to-play-games-database.p.rapidapi.com/api/games?category=${category}`, options);
-    const data = await res.json();
+      // Fetching the data from the API using the category
+      const res = await fetch(`https://free-to-play-games-database.p.rapidapi.com/api/games?category=${category}`, options);
+      const data = await res.json();
 
-    // After fetching the data, Call the displayGames method from the Ui class to display the games in the page
-    this.ui.displayGames(data);
+      // After fetching the data, Call the displayGames method from the Ui class to display the games in the page
+      this.ui.displayGames(data);
 
-    // Hide the loader after displaying the data
-    loader.classList.add("d-none")
+      // Hide the loader after displaying the data
+      loader.classList.add("d-none")
 
-    // Call the getGameDetail() method after displaying the data so that clicking the single game will open the game's detail section
-    this.getGameDetail();
+      // Call the getGameDetail() method after displaying the data so that clicking the single game will open the game's detail section
+      this.getGameDetail();
+
+    } catch(err) {
+
+      alert(err);
+      
+    }
+
 
   }
 
